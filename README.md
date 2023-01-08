@@ -1,7 +1,7 @@
 Testing Steps
 The script searches for the #include statement in the ft_putstr.c file. If the <unistd.h> file is not included, the test1_fail file is created and the script exits. If the file is included, the test1_passed file is created.
 
-The ft_putstr.c file is copied to the test.c file and a main() function is added to the test.c file. This function calls the ft_putstr() function and writes the asd text. The program returns 0.
+The ft_putstr.c file is copied to the test.c file and a main() function is added to the test.c file. This function calls the ft_putstr() function and writes the any text. The program returns 0.
 
 The test.c file is compiled using GCC with the -Wall, -Wextra, and -Werror flags. If the compilation fails, the test2_fail file is created and the script exits. If the compilation is successful, the test2_passed file is created.
 
