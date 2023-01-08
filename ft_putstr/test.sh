@@ -10,9 +10,9 @@ fi
 
 touch test1_passed
 
-# ft_putstr içerisindeki kodları teste aktar.
+
 cat ft_putstr.c > test.c
-# fonksiyon için test edilecek kodları ekle
+
 echo 'int main() {
   ft_putstr("Test1");
   ft_putstr("Test2");
@@ -30,6 +30,25 @@ echo 'int main() {
   return 0;
 }' >> test.c
 
+cat main.c > main2.c
+
+echo 'int main() {
+  ft_putstr("Test1");
+  ft_putstr("Test2");
+  ft_putstr("Test3");
+  ft_putstr("Test4");
+  ft_putstr("Test5");
+  ft_putstr("Test6");
+  ft_putstr("Test7");
+  ft_putstr("00000");
+  ft_putstr("00001");
+  ft_putstr("10000");
+  ft_putstr(".....");
+  ft_putstr("2147483649");
+  ft_putstr("-2147483649");
+  return 0;
+}' >> main2.c
+
 gcc -Wall -Wextra -Werror test.c > /dev/null 2>&1
 
 gcc_exit_code=$?
@@ -42,7 +61,7 @@ touch test2_passed
 
 gcc test.c -o file1
 
-gcc main.c -o file2
+gcc main2.c -o file2
 
 # ilk c dosyasını çalıştır ve çıktısını capture_1.txt dosyasına yazdır
 ./file1 > capture_1.txt
