@@ -2,7 +2,6 @@
 
 files=$(find . -name "*_fail")
 
-rm -rf error!
 rm -rf test.c
 rm -rf a.out
 rm -rf file1
