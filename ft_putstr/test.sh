@@ -5,6 +5,7 @@ includes=$(grep -o '#include.*' ft_putstr.c)
 # include edilen dosyaları kontrol et
 if [[ $includes != *"<unistd.h>"* ]]; then
   touch test1_fail
+  bash clear.sh
   exit 1
 fi
 
@@ -30,9 +31,27 @@ echo 'int main() {
   return 0;
 }' >> test.c
 
-cat main.c > main2.c
+echo '
+#include <unistd.h>
 
-echo 'int main() {
+void    ft_putchar(char c)
+{
+        write (1, &c, 1);
+}
+
+void    ft_putstr(char *str)
+{
+        int i;
+
+        i = 0;
+
+        while (str[i])
+        {
+                ft_putchar(str[i]);
+                i++;
+        }
+}
+int main() {
   ft_putstr("Test1");
   ft_putstr("Test2");
   ft_putstr("Test3");
@@ -47,13 +66,14 @@ echo 'int main() {
   ft_putstr("2147483649");
   ft_putstr("-2147483649");
   return 0;
-}' >> main2.c
+}' >> main.c
 
 gcc -Wall -Wextra -Werror test.c > /dev/null 2>&1
 
 gcc_exit_code=$?
 if [ $gcc_exit_code -ne 0 ]; then
   touch test2_fail
+  bash clear.sh
   exit 1
 fi
 
@@ -61,12 +81,10 @@ touch test2_passed
 
 gcc test.c -o file1
 
-gcc main2.c -o file2
+gcc main.c -o file2
 
-# ilk c dosyasını çalıştır ve çıktısını capture_1.txt dosyasına yazdır
 ./file1 > capture_1.txt
 
-# ikinci c dosyasını çalıştır ve çıktısını capture_2.txt dosyasına yazdır
 ./file2 > capture_2.txt
 
 diff capture_1.txt capture_2.txt
@@ -74,7 +92,9 @@ diff capture_1.txt capture_2.txt
 if [ $? -eq 0 ]
 then
   touch test3_passed
+  bash clear.sh
 else
   touch test3_fail
+  bash clear.sh
   exit 1
 fi
