@@ -1,8 +1,7 @@
 #!/bin/bash
 
 includes=$(grep -o '#include.*' ft_putstr.c)
-
-# include edilen dosyaları kontrol et
+# Check all included files.
 if [[ $includes != *"<unistd.h>"* ]]; then
   touch test1_fail
   bash clear.sh
